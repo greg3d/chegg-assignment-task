@@ -1,10 +1,7 @@
 import {useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {searchUsers} from "./service/gitHubApiService.ts";
+import {searchUsers} from "./../service/gitHubApiService.ts";
 
-function App() {
+function Root() {
     const [users, setUsers] = useState<ISearchData>()
 
     useEffect(() => {
@@ -20,4 +17,4 @@ function App() {
     )
 }
 
-export default App
+export default Root
