@@ -1,15 +1,10 @@
-import {useStores} from "../stores/RootStore.ts";
-import {useObserver} from "mobx-react-lite";
+function Home() {
 
-const Home = () => {
-    const {searchStore} = useStores();
-    return useObserver(() => (
-        <div>
-            <h1>Home</h1>
-            <p>{searchStore.currentPage}</p>
-            <button onClick={() => searchStore.addPage()}>Click Me</button>
-        </div>
-    ));
-};
+    return (
+        <>
+            <div>Home</div>
+        </>
+    )
+}
 
-export default Home;
+export default Home

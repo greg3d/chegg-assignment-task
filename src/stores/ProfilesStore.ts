@@ -1,14 +1,14 @@
 import {makeAutoObservable} from "mobx";
 import {RootStore} from "./RootStore.ts";
 
-class SearchStore {
+class ProfilesStore {
 
     private rootStore: RootStore;
 
     searchPrompt: string = "";
     currentPage: number = 0;
     pagesCount: number = 0;
-    users: IUser[] = [];
+    profiles: IUser[] = [];
 
     constructor(rootStore: RootStore) {
         makeAutoObservable(this);
@@ -21,4 +21,4 @@ class SearchStore {
 
 }
 
-export default SearchStore;
+export default ProfilesStore;

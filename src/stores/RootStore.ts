@@ -1,15 +1,15 @@
 import UIStore from "./UIStore.ts";
-import SearchStore from "./SearchStore.ts";
+import ProfilesStore from "./ProfilesStore.ts";
 import React from "react";
 
 export class RootStore {
 
     readonly uiStore;
-    readonly searchStore;
+    readonly profilesStore;
 
     constructor() {
         this.uiStore = new UIStore(this);
-        this.searchStore = new SearchStore(this);
+        this.profilesStore = new ProfilesStore(this);
     }
 }
 

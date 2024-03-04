@@ -1,28 +1,33 @@
 import ReactDOM from 'react-dom/client'
-import './index.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Users from './components/Users.tsx';
-import UserPage from "./components/UserPage.tsx";
+import ProfileView from "./components/ProfileView.tsx";
+import "./scss/styles.scss";
 import Home from "./components/Home.tsx";
-import Root from "./components/Root.tsx";
+import Layout from "./components/Layout.tsx";
+import SearchProfiles from "./components/SearchProfiles.tsx";
 
 const router = createBrowserRouter([
     {
-        path: "*",
-        Component: Root
-    },
-    {
         path: "/",
-        Component: Home
+        element: <Layout/>,
+        children: [
+            {
+                path: "/",
+                element: <Home/>
+            },
+            {
+                path: "profiles",
+                element: <SearchProfiles/>,
+                children: [
+                    {
+                        path: "user/:id",
+                        element: <ProfileView/>
+                    }
+                ]
+            }
+        ]
     },
-    {
-        path: "/users",
-        Component: Users
-    },
-    {
-        path: "/users/:userId",
-        Component: UserPage
-    }
+    {path: "*", element: <Home/>}
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
