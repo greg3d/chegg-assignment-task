@@ -13,7 +13,7 @@ const Layout = observer(() => {
                                 <Link to="/">Home</Link>
                             </li>
                             <li>
-                                <Link to="/profiles">Search Profile</Link>
+                                <Link to="/search">Search Profile</Link>
                             </li>
                         </ul>
                     </nav>

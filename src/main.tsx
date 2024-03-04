@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import ProfileView from "./components/ProfileView.tsx";
+import ProfileModalView from "./components/ProfileModalView.tsx";
 import "./scss/styles.scss";
 import Home from "./components/Home.tsx";
 import Layout from "./components/Layout.tsx";
@@ -16,12 +16,13 @@ const router = createBrowserRouter([
                 element: <Home/>
             },
             {
-                path: "profiles",
+                path: "search",
                 element: <SearchProfiles/>,
                 children: [
                     {
                         path: "user/:id",
-                        element: <ProfileView/>
+                        Component: ProfileModalView,
+                        loader: ()=>{return {login: "Greg22"}},
                     }
                 ]
             }

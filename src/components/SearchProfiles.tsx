@@ -1,6 +1,6 @@
 import {observer} from "mobx-react-lite";
-import profilesStore from "../stores/ProfilesStore.ts";
 import {useStores} from "../stores/RootStore.ts";
+import {Link, Outlet} from "react-router-dom";
 
 const SearchProfiles = () => {
     const {profilesStore} = useStores();
@@ -8,7 +8,9 @@ const SearchProfiles = () => {
         <div>
             <h1>Search Profiles</h1>
             {profilesStore.currentPage}
-            {profilesStore.users}
+            {profilesStore.profiles.length != 0 && profilesStore.profiles.map(profile => <div>{profile.login}</div>)}
+            <Link to={"user/33"} >dsf</Link>
+            <Outlet />
         </div>
     );
 };
