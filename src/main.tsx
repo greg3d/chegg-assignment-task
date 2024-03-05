@@ -1,10 +1,11 @@
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import ProfileModalView from "./components/ProfileModalView.tsx";
 import "./scss/styles.scss";
-import Home from "./components/Home.tsx";
+import Home from "./pages/Home.tsx";
 import Layout from "./components/Layout.tsx";
-import SearchProfiles from "./components/SearchProfiles.tsx";
+import SearchProfiles from "./pages/SearchProfiles.tsx";
+import Settings from "./pages/Settings.tsx";
+import ProfileView from "./pages/ProfileView.tsx";
 
 const router = createBrowserRouter([
     {
@@ -13,18 +14,20 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home/>
+                index: true,
+                Component: Home
             },
             {
                 path: "search",
-                element: <SearchProfiles/>,
-                children: [
-                    {
-                        path: "user/:id",
-                        Component: ProfileModalView,
-                        loader: ()=>{return {login: "Greg22"}},
-                    }
-                ]
+                Component: SearchProfiles,
+            },
+            {
+                path: "settings",
+                Component: Settings
+            },
+            {
+                path: "user/:login",
+                Component: ProfileView
             }
         ]
     },
@@ -32,5 +35,5 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
 )

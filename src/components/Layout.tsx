@@ -15,6 +15,9 @@ const Layout = observer(() => {
                             <li>
                                 <Link to="/search">Search Profile</Link>
                             </li>
+                            <li>
+                                <Link to="/settings">Settings</Link>
+                            </li>
                         </ul>
                     </nav>
                 </div>

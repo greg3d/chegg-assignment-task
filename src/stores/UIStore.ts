@@ -2,9 +2,11 @@ import {makeAutoObservable, observable} from "mobx";
 import {RootStore} from "./RootStore.ts";
 
 class UIStore {
-    private rootStore: RootStore
+    readonly rootStore: RootStore
 
+    resultsPerPage: number = 10;
     theme: string = ""
+
 
     windowDimensions = {
         width: window.innerWidth,

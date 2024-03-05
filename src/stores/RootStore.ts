@@ -1,6 +1,5 @@
 import UIStore from "./UIStore.ts";
 import ProfilesStore from "./ProfilesStore.ts";
-import React from "react";
 
 export class RootStore {
 
@@ -12,6 +11,6 @@ export class RootStore {
         this.profilesStore = new ProfilesStore(this);
     }
 }
-
-const StoreContext = React.createContext(new RootStore());
-export const useStores = () => React.useContext(StoreContext);
+const store = new RootStore();
+//const StoreContext = React.createContext(store);
+export const useStores = () => store;
