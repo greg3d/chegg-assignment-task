@@ -1,34 +1,23 @@
-import {FormEvent, useState} from 'react';
+import React, {useRef} from "react";
 
 interface Props {
-    name: string,
-    buttonDisabled: boolean,
-    handler: (val: string) => void
+    className?: string
+    name: string
+    setter: (val: string) => void
 }
 
 const SearchPanel = (props: Props) => {
 
-    const {name, buttonDisabled, handler} = props;
-    const [state, setState] = useState<{ [key: string]: string }>({});
+    const {name, setter, className} = props;
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        handler(state[name]);
+    const debounce = useRef(0);
+    const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        clearTimeout(debounce.current);
+        debounce.current = setTimeout(() => setter(e.target.value), 300);
     }
 
     return (
-        <div>Search panel</div>
-        /*<Form onSubmit={handleSubmit}>
-            <InputGroup>
-                <Form.Control
-                    type={"search"}
-                    name={name}
-                    placeholder={name}
-                    onChange={({target: {value}}) => setState((state => ({...state, [name]: value})))}
-                />
-                <Button disabled={buttonDisabled} variant={"outline-secondary"} type={"submit"}>Search</Button>
-            </InputGroup>
-        </Form>*/
+        <input className={className} type="search" name={name} onChange={changeHandler}/>
     );
 };
 

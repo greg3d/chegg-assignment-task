@@ -1,9 +1,3 @@
-interface ISearchData {
-    total_count: number
-    incomplete_results: boolean
-    items: Partial<IUser>[] | []
-}
-
 interface IUser {
     login: string
     id: number
@@ -23,4 +17,16 @@ interface IUser {
     type: string
     site_admin: boolean
     score: number
+
+    [key: string]: string | number
 }
+
+type IPartialUser = { id: number, login: string } & Partial<IUser>
+
+interface ISearchData {
+    total_count: number
+    incomplete_results: boolean
+    items: IPartialUser[] | []
+}
+
+type GenericItem = ({ id: number } & { [key: string]: any })
