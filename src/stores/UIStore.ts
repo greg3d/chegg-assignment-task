@@ -5,8 +5,8 @@ class UIStore {
     readonly rootStore: RootStore
 
     resultsPerPage: number = 10;
-    theme: string = ""
 
+    theme: string = "dark"
 
     windowDimensions = {
         width: window.innerWidth,
@@ -14,6 +14,7 @@ class UIStore {
     }
 
     constructor(rootStore: RootStore) {
+
         makeAutoObservable(this, {
             windowDimensions: observable.struct
         });
@@ -21,6 +22,7 @@ class UIStore {
             this.getWindowDimensions();
         }
         this.rootStore = rootStore;
+
     }
 
     getWindowDimensions() {
@@ -28,6 +30,11 @@ class UIStore {
             width: window.innerWidth,
             height: window.innerHeight
         }
+    }
+
+    switchTheme = () => {
+        if (this.theme === "dark") this.theme = "light"
+        else this.theme = "dark";
     }
 }
 
