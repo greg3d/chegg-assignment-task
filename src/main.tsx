@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import "./scss/styles.scss";
 import Home from "./pages/Home.tsx";
 import Layout from "./components/Layout.tsx";
 import SearchProfiles from "./pages/SearchProfiles.tsx";
 import Settings from "./pages/Settings.tsx";
 import ProfileView from "./pages/ProfileView.tsx";
+import "./scss/styles.scss";
 
 const router = createBrowserRouter([
     {

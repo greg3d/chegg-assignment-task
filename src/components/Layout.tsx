@@ -2,6 +2,7 @@ import {observer} from "mobx-react-lite";
 import {Navbar, Container, Nav, NavDropdown} from "react-bootstrap";
 import {useStores} from "../stores/RootStore.ts";
 import Switch from "./Switch.tsx";
+import Sandwich from "./Sandwich.tsx";
 
 const Layout = observer(() => {
 
@@ -11,8 +12,11 @@ const Layout = observer(() => {
         <div className={"app-provider"} data-bs-theme={uiStore.theme}>
             <Navbar expand="sm" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="#home"><Switch name={"theme-switch"} handler={uiStore.switchTheme} value={uiStore.theme==="dark"}/></Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                    <Navbar.Brand href="#home">
+                        <Switch name={"theme-switch"} handler={uiStore.switchTheme} value={uiStore.theme==="dark"}/>
+                    </Navbar.Brand>
+
+                    <Navbar.Toggle as={"button"} aria-controls={"basic-navbar-nav"} children={<Sandwich />} />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="#home">Home</Nav.Link>
