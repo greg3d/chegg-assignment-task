@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import {Nav} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 
 const CustomLink = ({children, to}: { children: PropTypes.ReactNodeLike, to: string }) => {
@@ -14,7 +13,7 @@ const CustomLink = ({children, to}: { children: PropTypes.ReactNodeLike, to: str
 
 CustomLink.propTypes = {
     children: PropTypes.node.isRequired,
-    to: PropTypes.object.isRequired
+    to: PropTypes.string.isRequired
 };
 
 export default CustomLink;

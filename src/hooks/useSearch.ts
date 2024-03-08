@@ -1,38 +1,35 @@
-import useSWR from "swr";
-import {searchUsers} from "../service/githubApi.ts";
+import useSWR, {Fetcher} from "swr";
+import {getProfileSearchKey} from "../service/githubApi.ts";
 
 interface useSearchType {
     profiles: IPartialUser[] | []
-    count: number
-    pages: number
     isLoading: boolean
+    isValidating: boolean
     isError: any
 }
 
-function sanitize(val: string) {
-    return val.trim()
-}
+export const useSearch = (store: ISearchStore, fetcher: Fetcher<ISearchData, string>) => {
 
-export const useSearch = (query: string, page: number, per_page: number) => {
+    const {searchPrompt: query, currentPage: page, perPage} = store;
 
-    query = sanitize(query)
-    const {data, error, isLoading} = useSWR(query !== "" ? [query, page, per_page] : null, searchUsers)
+    const {
+        data,
+        error,
+        isLoading,
+        isValidating
+    } = useSWR(query !== "" ? getProfileSearchKey(query, page, perPage) : null, fetcher)
+
+    let items: IPartialUser[] = [];
 
     if (data) {
         const searchData = data as ISearchData;
-        return {
-            profiles: searchData?.items,
-            count: searchData?.total_count,
-            pages: Math.ceil(searchData.total_count / 10),
-            isLoading,
-            isError: error
-        } as useSearchType
+        store.setState(Math.ceil(searchData.total_count / perPage), searchData.total_count)
+        items = searchData.items;
     }
 
     return {
-        profiles: [],
-        count: 0,
-        pages: 1,
+        profiles: items,
+        isValidating,
         isLoading,
         isError: error
     } as useSearchType

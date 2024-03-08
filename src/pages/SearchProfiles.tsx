@@ -4,27 +4,26 @@ import SearchPanel from "../components/SearchPanel.tsx";
 import {useSearch} from "../hooks/useSearch.ts";
 import ItemList from "../components/ItemList.tsx";
 import ProfileRecord from "../components/ProfileRecord.tsx";
-import {runInAction} from "mobx";
-
+import {fetcher} from "../service/githubApi.ts";
 
 const SearchProfiles = observer(() => {
-    const {profilesStore, uiStore} = useStores();
+    const {profilesStore} = useStores();
 
-    const {profiles, isLoading, pages, count}
-        = useSearch(profilesStore.searchPrompt, profilesStore.currentPage, uiStore.resultsPerPage)
-
-    runInAction(()=>{
-        profilesStore.pagesCount = pages;
-    })
+    const {profiles, isLoading, isError} = useSearch(profilesStore, fetcher)
 
     return (
         <>
             <h1>Search Profiles</h1>
-            <button onClick={()=>profilesStore.prevPage()}>prev page</button>
-            <button onClick={()=>profilesStore.nextPage()}>next page</button>
-            <div>{pages} | {count} | {profilesStore.currentPage} | {profilesStore.searchPrompt}</div>
-            <SearchPanel className={"test"} name={"search-profile"} setter={profilesStore.setSearchPrompt}/>
-            <ItemList isLoading={isLoading} items={profiles} Component={ProfileRecord}/>
+            <button onClick={() => profilesStore.prevPage()}>prev page</button>
+            <button onClick={() => profilesStore.nextPage()}>next page</button>
+            <SearchPanel name={"search-profile"} value={profilesStore.searchPrompt}
+                         setter={profilesStore.setSearchPrompt}/>
+
+
+            <ItemList isLoading={isLoading} isError={isError} items={profiles}
+                      Component={ProfileRecord}/>
+
+
         </>
     );
 });

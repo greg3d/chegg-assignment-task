@@ -1,3 +1,21 @@
+interface IStore {
+    rootStore: object
+}
+
+interface ISearchStore extends IStore {
+    searchPrompt: string
+    currentPage: number
+    totalCount: number
+    pagesCount: number
+    perPage: number
+    nextPage: () => void
+    prevPage: () => void
+    setPage: (index: number) => void
+    setSearchPrompt: (val: string) => void
+    setState: (total: number, pages: number) => void
+
+}
+
 interface IUser {
     login: string
     id: number

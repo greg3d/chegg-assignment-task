@@ -1,35 +1,28 @@
-import {makeAutoObservable, observable} from "mobx";
+import {makeAutoObservable} from "mobx";
 import {RootStore} from "./RootStore.ts";
+import {AxiosError} from "axios";
 
-class UIStore {
+class UIStore implements IStore {
     readonly rootStore: RootStore
 
     resultsPerPage: number = 10;
-
-    theme: string = "dark"
-
-    windowDimensions = {
-        width: window.innerWidth,
-        height: window.innerHeight
-    }
+    scrollLoading: boolean = false;
+    error: AxiosError | undefined;
+    showError: boolean = false;
+    theme: string = "light"
 
     constructor(rootStore: RootStore) {
-
-        makeAutoObservable(this, {
-            windowDimensions: observable.struct
-        });
-        window.onresize = () => {
-            this.getWindowDimensions();
-        }
+        makeAutoObservable(this);
         this.rootStore = rootStore;
-
     }
 
-    getWindowDimensions() {
-        this.windowDimensions = {
-            width: window.innerWidth,
-            height: window.innerHeight
-        }
+    setError = (error: AxiosError) => {
+        this.error = error;
+        this.showError = true;
+    }
+
+    ackError = ()=>{
+        this.showError = false;
     }
 
     switchTheme = () => {

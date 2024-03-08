@@ -13,7 +13,7 @@ const Switch = ({name, value, handler}: Props) => {
                 type="switch"
                 id={name}
                 checked={value}
-                onClick={handler}
+                onChange={handler}
             />
         </Form>
     );
