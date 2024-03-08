@@ -2,17 +2,18 @@ interface IStore {
     rootStore: object
 }
 
-interface ISearchStore extends IStore {
+interface ISearchStore<T> extends IStore {
     searchPrompt: string
     currentPage: number
     totalCount: number
     pagesCount: number
     perPage: number
+    prevPageData: T[]
     nextPage: () => void
     prevPage: () => void
     setPage: (index: number) => void
     setSearchPrompt: (val: string) => void
-    setState: (total: number, pages: number) => void
+    setState: (total: number, pages: number, prevPageData?: T[]) => void
 
 }
 

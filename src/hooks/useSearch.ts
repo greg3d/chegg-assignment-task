@@ -8,29 +8,28 @@ interface useSearchType {
     isError: any
 }
 
-export const useSearch = (store: ISearchStore, fetcher: Fetcher<ISearchData, string>) => {
+export const useSearch = (store: ISearchStore<IPartialUser>, fetcher: Fetcher<ISearchData, string>) => {
 
     const {searchPrompt: query, currentPage: page, perPage} = store;
 
     const {
         data,
-        error,
         isLoading,
-        isValidating
-    } = useSWR(query !== "" ? getProfileSearchKey(query, page, perPage) : null, fetcher)
+        isValidating,
+        error
+    } = useSWR(getProfileSearchKey(query, page, perPage), fetcher)
 
     let items: IPartialUser[] = [];
 
     if (data) {
-        const searchData = data as ISearchData;
-        store.setState(Math.ceil(searchData.total_count / perPage), searchData.total_count)
-        items = searchData.items;
+        items = data.items;
+        store.setState(Math.ceil(data.total_count / perPage), data.total_count, data.items)
     }
 
     return {
         profiles: items,
-        isValidating,
         isLoading,
-        isError: error
+        isValidating,
+        isError: error,
     } as useSearchType
 }

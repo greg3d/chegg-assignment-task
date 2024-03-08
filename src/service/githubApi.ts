@@ -15,6 +15,7 @@ export const fetcher = async (url: string) => {
 }
 
 export const getProfileSearchKey = (query: string, page: number, per_page: number) => {
+    if (query==="") return null;
     return `${API_BASE_URL}/search/users?q=${query}&page=${page}&per_page=${per_page}`;
 }
 

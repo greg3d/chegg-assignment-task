@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import {RootStore} from "./RootStore.ts";
 
-class ProfilesStore implements ISearchStore {
+class ProfilesStore implements ISearchStore<IPartialUser> {
 
     readonly rootStore: RootStore;
 
@@ -9,7 +9,7 @@ class ProfilesStore implements ISearchStore {
     currentPage: number = 1;
     pagesCount: number = 1;
     totalCount: number = 0;
-    profiles: IPartialUser[] = [];
+    prevPageData: IPartialUser[] = [];
 
     constructor(rootStore: RootStore) {
         makeAutoObservable(this);
@@ -20,12 +20,12 @@ class ProfilesStore implements ISearchStore {
         return this.rootStore.uiStore.resultsPerPage;
     }
 
-    setState = (pages: number, total: number, profiles?: IPartialUser[]) => {
-        runInAction(()=>{
+    setState = (pages: number, total: number, prevPageData?: IPartialUser[]) => {
+        runInAction(() => {
             this.pagesCount = pages;
             this.totalCount = total;
-            if (profiles) {
-                this.profiles = profiles
+            if (prevPageData) {
+                this.prevPageData = prevPageData
             }
         })
     }
