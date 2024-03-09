@@ -25,7 +25,7 @@ class ProfilesStore implements ISearchStore<IPartialUser> {
             this.pagesCount = pages;
             this.totalCount = total;
             if (prevPageData) {
-                this.prevPageData = prevPageData
+                this.prevPageData = prevPageData;
             }
         })
     }
@@ -33,6 +33,7 @@ class ProfilesStore implements ISearchStore<IPartialUser> {
     setSearchPrompt = (val: string) => {
         val = val.trim()
         if (val !== this.searchPrompt) {
+            this.prevPageData = []
             this.currentPage = 1;
             this.searchPrompt = val;
         }

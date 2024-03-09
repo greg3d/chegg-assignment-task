@@ -5,8 +5,6 @@ const API_BASE_URL = 'https://api.github.com';
 
 export const fetcher = async (url: string) => {
     try {
-
-
         const response = await axios.get(url);
         return response.data;
     } catch (e) {
@@ -15,7 +13,7 @@ export const fetcher = async (url: string) => {
 }
 
 export const getProfileSearchKey = (query: string, page: number, per_page: number) => {
-    if (query==="") return null;
+    if (query === "") return null;
     return `${API_BASE_URL}/search/users?q=${query}&page=${page}&per_page=${per_page}`;
 }
 
@@ -28,9 +26,7 @@ export const getUser = async (username: string) => {
     return data as IUser;
 }
 
-
 // interceptor
-
 axios.interceptors.response.use((response) => {
     return response;
 }, (error: AxiosError) => {

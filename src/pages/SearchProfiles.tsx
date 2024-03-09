@@ -9,7 +9,7 @@ import {fetcher} from "../service/githubApi.ts";
 const SearchProfiles = observer(() => {
     const {profilesStore} = useStores();
 
-    const {profiles, isLoading, isError} = useSearch(profilesStore, fetcher)
+    const {isLoading, isError} = useSearch(profilesStore, fetcher)
 
     return (
         <>
@@ -20,7 +20,8 @@ const SearchProfiles = observer(() => {
                          setter={profilesStore.setSearchPrompt}/>
 
 
-            <ItemList isLoading={isLoading} isError={isError} items={profiles}
+            <ItemList isLoading={isLoading} isError={isError}
+                      items={profilesStore.prevPageData}
                       Component={ProfileRecord}/>
 
 
