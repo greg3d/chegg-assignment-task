@@ -1,4 +1,3 @@
-import {Form} from "react-bootstrap";
 
 interface Props {
     name: string

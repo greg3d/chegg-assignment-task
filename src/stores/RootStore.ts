@@ -1,15 +1,22 @@
 import UIStore from "./UIStore.ts";
-import ProfilesStore from "./ProfilesStore.ts";
+import SearchStore from "./SearchStore.ts";
+import {createContext, useContext} from "react";
+import UserStore from "./UserStore.ts";
 
 export class RootStore {
 
-    readonly uiStore;
-    readonly profilesStore;
+    readonly ui: UIStore;
+    readonly search: SearchStore;
+    readonly user: UserStore;
 
     constructor() {
-        this.uiStore = new UIStore(this);
-        this.profilesStore = new ProfilesStore(this);
+        this.ui = new UIStore(this);
+        this.search = new SearchStore(this);
+        this.user = new UserStore(this);
     }
 }
-export const rootStore = new RootStore();
-export const useStores = () => rootStore;
+export const store = new RootStore();
+export const StoreContext = createContext(store);
+export const useStore = () => {
+    return useContext(StoreContext);
+}

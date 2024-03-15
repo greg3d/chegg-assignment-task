@@ -5,19 +5,22 @@ interface IStore {
 interface ISearchStore<T> extends IStore {
     searchPrompt: string
     currentPage: number
-    totalCount: number
-    pagesCount: number
+    totalItems: number
+    totalPages: number
     perPage: number
-    prevPageData: T[]
+    isEnd: boolean
+
+    items: T[]
+
     nextPage: () => void
     prevPage: () => void
     setPage: (index: number) => void
-    setSearchPrompt: (val: string) => void
-    setState: (total: number, pages: number, prevPageData?: T[]) => void
 
+    setSearchPrompt: (val: string) => void
+    setState: (searchResults: ISearchData) => void
 }
 
-interface IUser {
+interface IUser extends Record<string, string | number | boolean> {
     login: string
     id: number
     node_id: string
@@ -36,16 +39,14 @@ interface IUser {
     type: string
     site_admin: boolean
     score: number
-
-    [key: string]: string | number
 }
 
-type IPartialUser = { id: number, login: string } & Partial<IUser>
+type IUserPreview = Pick<IUser, 'id' | 'login' | 'avatar_url' | 'url' | 'type'>
 
 interface ISearchData {
     total_count: number
     incomplete_results: boolean
-    items: IPartialUser[] | []
+    items: IUserPreview[]
 }
 
 type GenericItem = ({ id: number } & { [key: string]: any })

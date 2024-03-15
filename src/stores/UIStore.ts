@@ -6,7 +6,6 @@ class UIStore implements IStore {
     readonly rootStore: RootStore
 
     resultsPerPage: number = 10;
-    scrollLoading: boolean = false;
     error: AxiosError | undefined;
     showError: boolean = false;
     theme: string = "light"

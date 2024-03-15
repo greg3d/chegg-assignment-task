@@ -1,35 +1,34 @@
 import useSWR, {Fetcher} from "swr";
-import {getProfileSearchKey} from "../service/githubApi.ts";
 
 interface useSearchType {
-    profiles: IPartialUser[] | []
+    data: ISearchData
     isLoading: boolean
     isValidating: boolean
-    isError: any
+    isError: boolean,
 }
 
-export const useSearch = (store: ISearchStore<IPartialUser>, fetcher: Fetcher<ISearchData, string>) => {
-
-    const {searchPrompt: query, currentPage: page, perPage} = store;
+export const useSearch = (
+    params: Record<string, string> & Required<{ q: string }>,
+    fetcher: Fetcher<ISearchData, string>,
+    onSuccessCallback: (data: ISearchData) => void
+) => {
 
     const {
         data,
         isLoading,
         isValidating,
-        error
-    } = useSWR(getProfileSearchKey(query, page, perPage), fetcher)
-
-    let items: IPartialUser[] = [];
-
-    if (data) {
-        items = data.items;
-        store.setState(Math.ceil(data.total_count / perPage), data.total_count, data.items)
-    }
+        error,
+        mutate
+    } = useSWR(params.q ? '/search/users?' + new URLSearchParams(params) : null, fetcher, {
+        onSuccess: (data) => onSuccessCallback(data),
+        shouldRetryOnError: false
+    })
 
     return {
-        profiles: items,
+        data,
         isLoading,
         isValidating,
-        isError: error,
+        isError: error && !isLoading && !isValidating,
+        mutate
     } as useSearchType
 }

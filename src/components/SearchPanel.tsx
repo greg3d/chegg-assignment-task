@@ -1,4 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
+import {IconButton, InputAdornment, TextField} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 interface Props {
     name: string
@@ -11,17 +13,39 @@ const SearchPanel = (props: Props) => {
     const [val, setVal] = useState("");
     const {name, setter, value} = props;
 
-    useEffect(()=>{
+    useEffect(() => {
         setVal(value)
-    },[])
+    },[value])
     const debounce = useRef(0);
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVal(e.target.value)
         clearTimeout(debounce.current);
-        debounce.current = setTimeout(() => setter(e.target.value), 300);
+        debounce.current = setTimeout(() => setter(e.target.value), 500);
     }
     return (
-        <input type="search" value={val} name={name} onChange={changeHandler}/>
+
+        <TextField
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position={"start"}>
+                        <IconButton>
+                            <SearchIcon/>
+                        </IconButton>
+                    </InputAdornment>
+                )
+            }}
+            type={"search"}
+            id={name}
+            name={name}
+            label="Search Github Profiles"
+            value={val}
+            onChange={changeHandler}
+            fullWidth={true}
+            variant={"outlined"}
+            size={"medium"}
+        />
+
+
     );
 };
 
