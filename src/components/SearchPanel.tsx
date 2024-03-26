@@ -25,6 +25,7 @@ const SearchPanel = (props: Props) => {
     return (
 
         <TextField
+            autoComplete={"off"}
             InputProps={{
                 startAdornment: (
                     <InputAdornment position={"start"}>

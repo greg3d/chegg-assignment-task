@@ -1,0 +1,51 @@
+import SearchPage from "../pages/SearchPage.tsx";
+import SettingsPage from "../pages/SettingsPage.tsx";
+import ProfileViewPage from "../pages/ProfileViewPage.tsx";
+import {LoaderFunctionArgs, redirect, RouteObject} from "react-router-dom";
+import MyAccount from "../pages/MyAccount.tsx";
+import {store} from "../stores/RootStore.ts";
+import LoginPage from "../pages/LoginPage.tsx";
+export const pages = [
+    {
+        title: "Search Profiles",
+        path: "/",
+        Component: SearchPage,
+    },
+    {
+        title: "App SettingsPage",
+        path: "settings",
+        Component: SettingsPage
+    },
+    {
+        title: "My Profile",
+        path: "my-account",
+        loader: profileLoader,
+        Component: MyAccount
+    },
+    {
+        path: "user/:login",
+        Component: ProfileViewPage
+    },
+    {
+        path: "login",
+        Component: LoginPage
+    }
+];
+
+function profileLoader({request}: LoaderFunctionArgs) {
+    if (store.user.current === null) {
+        const params = new URLSearchParams();
+        params.set("from", new URL(request.url).pathname);
+        return redirect("/login?" + params.toString());
+    }
+    return null;
+}
+
+export const routes: RouteObject[] = pages.map((page) => {
+    return {...page, id: page.title?.replace(" ", "")} as RouteObject
+})
+
+export const menu = pages.filter((item) => item.title).map((item) => ({
+    title: item.title,
+    path: item.path
+} as { title: string, path: string }))

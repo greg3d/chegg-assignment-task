@@ -3,36 +3,33 @@ import {RootStore} from "./RootStore.ts";
 
 class Sort {
     name: string
-    value: string
     label: string
 
-    constructor(name: string, val: string, label: string) {
+    constructor(name: string, label: string) {
         this.name = name;
-        this.value = val;
         this.label = label;
     }
-
 }
 
 class Sorts {
 
-    list: Record<string, Sort> = {basic: new Sort("default", "", "Best match")}
+    list: Record<string, Sort> = {default: new Sort("", "Best match")}
 
-    add(sort: Sort) {
-        if (sort.name !== "default" && sort.name !== "basic") {
+    add(name: string, label: string) {
+        if (name !== "default" && name !== "") {
+            const sort = new Sort(name, label);
             this.list[sort.name] = sort;
         }
         return this;
     }
 
     get default() {
-        return this.list.basic;
+        return this.list.default.name;
     }
 
     constructor() {
         this.add.bind(this);
     }
-
 }
 
 class SearchStore implements ISearchStore<IUserPreview> {
@@ -46,14 +43,19 @@ class SearchStore implements ISearchStore<IUserPreview> {
     items: IUserPreview[] = [];
 
     // sorting
-    sortBy: Sorts;
-    sortDir: "asc" | "desc" = "desc"
+    private readonly sorts: Sorts;
+    sortBy: string;
+    sortDir: "asc" | "desc" = "desc";
 
     constructor(rootStore: RootStore) {
-        this.sortBy = new Sorts();
-        this.sortBy
-            .add(new Sort("followers", "", "By Followers"))
-            .add(new Sort("repositories", "", "By Repositories"))
+        this.sorts = new Sorts();
+        this.sorts
+            .add("followers", "By Followers")
+            .add("repositories", "By Repositories")
+            .add("joined", "By Joined Time")
+
+        this.sortBy = this.sorts.default;
+
         this.rootStore = rootStore;
         makeAutoObservable(this, {}, {
             autoBind: true
@@ -70,15 +72,34 @@ class SearchStore implements ISearchStore<IUserPreview> {
         return false;
     }
 
-    setState(result: ISearchData) {
-        runInAction(() => {
-            if (result && result.items && result.items.length > 0) {
-                if (result.total_count !== this.totalItems) this.setTotalItems(result.total_count);
-                console.log("Pushing Items")
-                this.items.push(...result.items);
+    getSortList() {
+        return Object.keys(this.sorts.list).map(key => {
+            return {
+                label: this.sorts.list[key].label,
+                value: this.sorts.list[key].name
             }
-            console.log("FinishJob")
         })
+    }
+
+    setStateInfinite = (data: ISearchData[]) => {
+        runInAction(() => {
+            this.setTotalItems(data[0].total_count);
+            this.items = data ? data.reduce((acc: IUserPreview[], val: ISearchData) => acc.concat(...val.items), []) : [];
+        })
+    }
+
+    setSortBy(val: string) {
+        runInAction(() => {
+            this.sortBy = val;
+        })
+    }
+
+    setSortDir(val: string) {
+        if (val === ("desc" || "asc")) {
+            runInAction(() => {
+                this.sortDir = val;
+            })
+        }
     }
 
     setTotalItems(val: number) {
@@ -102,7 +123,9 @@ class SearchStore implements ISearchStore<IUserPreview> {
     // paginator methods
     nextPage() {
         if (this.currentPage < this.totalPages)
-        this.currentPage++;
+            this.currentPage++;
+
+        return this.currentPage;
     }
 
     prevPage() {

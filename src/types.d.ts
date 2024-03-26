@@ -9,15 +9,19 @@ interface ISearchStore<T> extends IStore {
     totalPages: number
     perPage: number
     isEnd: boolean
-
+    sortBy: string
+    sortDir: string
     items: T[]
+
+    getSortList: ()=>{value:string, label: string}[]
 
     nextPage: () => void
     prevPage: () => void
     setPage: (index: number) => void
-
     setSearchPrompt: (val: string) => void
-    setState: (searchResults: ISearchData) => void
+    setSortDir: (val: string)=>void
+    setSortBy: (val: string)=>void
+
 }
 
 interface IUser extends Record<string, string | number | boolean> {
@@ -38,7 +42,18 @@ interface IUser extends Record<string, string | number | boolean> {
     received_events_url: string
     type: string
     site_admin: boolean
-    score: number
+    name: string,
+    company: string | null
+    blog: string
+    location: string
+    email: string | null
+    bio: string
+    twitter_username: string | null
+    public_repos: number
+    public_gists: number
+    followers: number
+    following: number
+    created_at: string
 }
 
 type IUserPreview = Pick<IUser, 'id' | 'login' | 'avatar_url' | 'url' | 'type'>

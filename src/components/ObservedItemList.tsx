@@ -4,27 +4,20 @@ import {observer} from "mobx-react-lite";
 const ObservedItemList = observer((props: {
     isLoading: boolean,
     isError: boolean,
+    isEmpty: boolean,
     items: GenericItem[] | null,
     Component: React.ComponentType<{ item: GenericItem }>
-    LoadingFallback: ReactElement
-    NotFoundFallback: ReactElement
+    LoadingFallback: ReactElement,
 }) => {
     const {
         items,
         isLoading,
         Component,
-        LoadingFallback,
-        NotFoundFallback,
-        isError
+        LoadingFallback
     } = props;
-
-    if (isError) return <div>Error...</div>
     return <>
-        {items && items.length != 0 &&
+        {items && items.length !== 0 &&
             items.map(item => <Component item={item} key={item.id}/>)}
-
-        {(!items || items.length === 0) && NotFoundFallback}
-
         {isLoading && LoadingFallback}
     </>
 });

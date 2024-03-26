@@ -1,12 +1,5 @@
 import useSWR, {Fetcher} from "swr";
 
-interface useSearchType {
-    data: ISearchData
-    isLoading: boolean
-    isValidating: boolean
-    isError: boolean,
-}
-
 export const useSearch = (
     params: Record<string, string> & Required<{ q: string }>,
     fetcher: Fetcher<ISearchData, string>,
@@ -14,7 +7,6 @@ export const useSearch = (
 ) => {
 
     const {
-        data,
         isLoading,
         isValidating,
         error,
@@ -25,10 +17,9 @@ export const useSearch = (
     })
 
     return {
-        data,
         isLoading,
         isValidating,
         isError: error && !isLoading && !isValidating,
         mutate
-    } as useSearchType
+    }
 }

@@ -18,6 +18,11 @@ export const getUser = async (username: string) => {
     return data as IUser;
 }
 
+export const getCurrentUser = async ()=>{
+    const data = await fetcher(`/user`)
+    return data as IUser;
+}
+
 // interceptors
 
 axios.interceptors.request.use((config) => {

@@ -5,7 +5,7 @@ import useSWR from "swr";
 import {fetcher} from "../service/githubApi.ts";
 import {observer} from "mobx-react-lite";
 
-const ProfileView = observer(() => {
+const ProfileViewPage = observer(() => {
 
     const {login} = useParams();
     const {profile, isLoading, isError} = useProfile(login!);
@@ -28,4 +28,4 @@ const ProfileView = observer(() => {
     );
 });
 
-export default ProfileView;
+export default ProfileViewPage;

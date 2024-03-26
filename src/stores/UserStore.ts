@@ -1,5 +1,5 @@
 import {RootStore} from "./RootStore.ts";
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, runInAction} from "mobx";
 
 class UserStore implements IStore {
     readonly rootStore: RootStore
@@ -13,11 +13,24 @@ class UserStore implements IStore {
     }
 
     setToken = (token: string) => {
-        this.gitHubToken = token;
+        if (token !== "") {
+            runInAction(() => {
+                this.gitHubToken = token;
+                return true;
+            })
+        }
+        return false;
     }
 
-    setUser(user: IUser) {
-        this.current = user;
+    setUser = (user: IUser) => {
+        runInAction(() => this.current = user);
+    }
+
+    logout = () => {
+        runInAction(() => {
+            this.gitHubToken = "";
+            this.current = null;
+        });
     }
 }
 

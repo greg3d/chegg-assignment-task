@@ -1,41 +1,24 @@
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Home from "./pages/Home.tsx";
 import Layout from "./components/Layout.tsx";
-import SearchProfiles from "./pages/SearchProfiles.tsx";
-import Settings from "./pages/Settings.tsx";
-import ProfileView from "./pages/ProfileView.tsx";
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import './scss/styles.scss';
+
+import {routes} from "./routes/pages.ts";
+import NotFound from "./pages/NotFound.tsx";
 
 const router = createBrowserRouter([
     {
+        id: "root",
         path: "/",
         element: <Layout/>,
-        children: [
-            {
-                path: "/",
-                index: true,
-                Component: Home
-            },
-            {
-                path: "search",
-                Component: SearchProfiles,
-            },
-            {
-                path: "settings",
-                Component: Settings
-            },
-            {
-                path: "user/:login",
-                Component: ProfileView
-            }
-        ]
+        children: routes
     },
-    {path: "*", element: <Home/>}
+    {path: "*", element: <NotFound/>}
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

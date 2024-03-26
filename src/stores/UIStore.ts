@@ -5,7 +5,7 @@ import {AxiosError} from "axios";
 class UIStore implements IStore {
     readonly rootStore: RootStore
 
-    resultsPerPage: number = 10;
+    resultsPerPage: number = 12;
     error: AxiosError | undefined;
     showError: boolean = false;
     theme: string = "light"
