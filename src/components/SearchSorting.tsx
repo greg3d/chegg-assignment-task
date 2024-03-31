@@ -1,28 +1,21 @@
-import {observer} from "mobx-react-lite";
-import {useCallback, useRef, useState} from "react";
-import {
-    FormControl,
-    FormControlLabel,
-    FormLabel,
-    Popover, Radio,
-    RadioGroup,
-    ToggleButton
-} from "@mui/material";
-import {FilterAltRounded} from "@mui/icons-material";
-import SearchStore from "../stores/SearchStore.ts";
+import {observer} from "mobx-react-lite"
+import {useCallback, useRef, useState} from "react"
+import {FormControl, FormControlLabel, FormLabel, Popover, Radio, RadioGroup, ToggleButton} from "@mui/material"
+import {FilterAltRounded} from "@mui/icons-material"
+import SearchStore from "../stores/SearchStore.ts"
 
-const SearchSorting = observer(({store}:{store:SearchStore}) => {
+const SearchSorting = observer(({store}: { store: SearchStore }) => {
 
-    const [popOverOpened, setOpened] = useState(false);
-    const anchor = useRef<HTMLButtonElement>(null);
+    const [popOverOpened, setOpened] = useState(false)
+    const anchor = useRef<HTMLButtonElement>(null)
 
     const handleClick = useCallback(() => {
-        setOpened(true);
-    }, []);
+        setOpened(true)
+    }, [])
 
     const handleClose = useCallback(() => {
-        setOpened(false);
-    }, []);
+        setOpened(false)
+    }, [])
 
     return <>
         <ToggleButton
@@ -43,7 +36,7 @@ const SearchSorting = observer(({store}:{store:SearchStore}) => {
             anchorEl={anchor.current}
             anchorOrigin={{
                 vertical: "bottom",
-                horizontal: "center",
+                horizontal: "center"
             }}
         >
             <FormControl sx={{p: 2}}>
@@ -87,7 +80,7 @@ const SearchSorting = observer(({store}:{store:SearchStore}) => {
                 </RadioGroup>
             </FormControl>
         </Popover>
-    </>;
-});
+    </>
+})
 
-export default SearchSorting;
+export default SearchSorting

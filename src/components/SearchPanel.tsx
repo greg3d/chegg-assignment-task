@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from "react";
-import {IconButton, InputAdornment, TextField} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import React, {useEffect, useRef, useState} from "react"
+import {IconButton, InputAdornment, TextField} from "@mui/material"
+import SearchIcon from "@mui/icons-material/Search"
 
 interface Props {
     name: string
@@ -10,17 +10,17 @@ interface Props {
 
 const SearchPanel = (props: Props) => {
 
-    const [val, setVal] = useState("");
-    const {name, setter, value} = props;
+    const [val, setVal] = useState("")
+    const {name, setter, value} = props
 
     useEffect(() => {
         setVal(value)
-    },[value])
-    const debounce = useRef(0);
+    }, [value])
+    const debounce = useRef(0)
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVal(e.target.value)
-        clearTimeout(debounce.current);
-        debounce.current = setTimeout(() => setter(e.target.value), 500);
+        clearTimeout(debounce.current)
+        debounce.current = setTimeout(() => setter(e.target.value), 500)
     }
     return (
 
@@ -47,7 +47,7 @@ const SearchPanel = (props: Props) => {
         />
 
 
-    );
-};
+    )
+}
 
-export default SearchPanel;
+export default SearchPanel

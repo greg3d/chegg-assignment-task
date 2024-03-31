@@ -1,5 +1,5 @@
-import useSWR from "swr";
-import {getUser} from "../service/githubApi.ts";
+import useSWR from "swr"
+import {getUser} from "../service/githubApi.ts"
 
 export const useProfile = (name: string) => {
     const {data, error, isLoading} = useSWR(name, getUser)

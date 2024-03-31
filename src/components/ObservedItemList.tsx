@@ -1,5 +1,5 @@
-import React, {ReactElement} from "react";
-import {observer} from "mobx-react-lite";
+import React, {ReactElement} from "react"
+import {observer} from "mobx-react-lite"
 
 const ObservedItemList = observer((props: {
     isLoading: boolean,
@@ -14,11 +14,11 @@ const ObservedItemList = observer((props: {
         isLoading,
         Component,
         LoadingFallback
-    } = props;
+    } = props
     return <>
         {items && items.length !== 0 &&
             items.map(item => <Component item={item} key={item.id}/>)}
         {isLoading && LoadingFallback}
     </>
-});
-export default ObservedItemList;
+})
+export default ObservedItemList

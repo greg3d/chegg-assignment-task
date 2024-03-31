@@ -1,25 +1,25 @@
-import {observer} from "mobx-react-lite";
-import {useStore} from "../stores/RootStore.ts";
-import SearchPanel from "../components/SearchPanel.tsx";
-import ObservedItemList from "../components/ObservedItemList.tsx";
-import ProfileRecord from "../components/ProfileRecord.tsx";
-import {useRef} from "react";
-import {Box, Grid, Paper, Typography} from "@mui/material";
-import SearchSorting from "../components/SearchSorting.tsx";
-import Skeletons from "../components/Skeletons.tsx";
-import {fetcher} from "../service/githubApi.ts";
-import {useSearchInfinite} from "../hooks/useSearchInfinite.ts";
+import {observer} from "mobx-react-lite"
+import {useStore} from "../stores/RootStore.ts"
+import SearchPanel from "../components/SearchPanel.tsx"
+import ObservedItemList from "../components/ObservedItemList.tsx"
+import ProfileRecord from "../components/ProfileRecord.tsx"
+import {useRef} from "react"
+import {Box, Grid, Paper, Typography} from "@mui/material"
+import SearchSorting from "../components/SearchSorting.tsx"
+import Skeletons from "../components/Skeletons.tsx"
+import {fetcher} from "../service/githubApi.ts"
+import {useSearchInfinite} from "../hooks/useSearchInfinite.ts"
 
 const SearchPage = observer(() => {
 
-    const {search} = useStore();
-    const loadMoreRef = useRef<HTMLDivElement>(null);
+    const {search} = useStore()
+    const loadMoreRef = useRef<HTMLDivElement>(null)
 
     const {isBusy, isEmpty, isError} = useSearchInfinite(fetcher, search, loadMoreRef)
 
     return (
-        <>
-            <Typography variant="h3" gutterBottom>
+        <Box>
+            <Typography variant="h2" gutterBottom>
                 Search Profiles
             </Typography>
             <Grid container gap={1}>
@@ -59,10 +59,9 @@ const SearchPage = observer(() => {
                 />
             </Grid>
 
-            <Box ref={loadMoreRef} sx={{height: '100px', width: '100%'}}></Box>
-        </>
+            <Box ref={loadMoreRef} sx={{height: "100px", width: "100%"}}></Box>
+        </Box>
     )
-        ;
-});
+})
 
-export default SearchPage;
+export default SearchPage

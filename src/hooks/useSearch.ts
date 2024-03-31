@@ -1,4 +1,4 @@
-import useSWR, {Fetcher} from "swr";
+import useSWR, {Fetcher} from "swr"
 
 export const useSearch = (
     params: Record<string, string> & Required<{ q: string }>,
@@ -11,7 +11,7 @@ export const useSearch = (
         isValidating,
         error,
         mutate
-    } = useSWR(params.q ? '/search/users?' + new URLSearchParams(params) : null, fetcher, {
+    } = useSWR(params.q ? "/search/users?" + new URLSearchParams(params) : null, fetcher, {
         onSuccess: (data) => onSuccessCallback(data),
         shouldRetryOnError: false
     })

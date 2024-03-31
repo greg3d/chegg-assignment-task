@@ -11,11 +11,11 @@ import {
     ListItemText,
     Toolbar,
     Typography
-} from "@mui/material";
-import {Menu as MenuIcon} from "@mui/icons-material";
-import {menu} from "../routes/pages.ts";
-import {useCallback, useRef, useState} from "react";
-import CustomLink from "./CustomLink.tsx";
+} from "@mui/material"
+import {Menu as MenuIcon} from "@mui/icons-material"
+import {menu} from "../routes/pages.ts"
+import {useCallback, useRef, useState} from "react"
+import CustomLink from "./CustomLink.tsx"
 
 interface Props {
     items: { title: string, path: string }[]
@@ -23,32 +23,32 @@ interface Props {
 
 const HeaderResponsive = ({items}: Props) => {
 
-    const container = window !== undefined ? () => window.document.body : undefined;
+    const container = window !== undefined ? () => window.document.body : undefined
 
-    const startX = useRef(0);
-    const deb = useRef(0);
+    const startX = useRef(0)
+    const deb = useRef(0)
 
     const touchStartHandler = useCallback((ev: TouchEvent) => {
-        startX.current = ev.touches[0].clientX;
+        startX.current = ev.touches[0].clientX
     }, [])
 
     const touchMoveHandler = useCallback((ev: TouchEvent) => {
         clearTimeout(deb.current)
         deb.current = setTimeout(() => {
             if (startX.current > ev.touches[0].clientX) {
-                setIsOpen(false);
+                setIsOpen(false)
             } else {
-                setIsOpen(true);
+                setIsOpen(true)
             }
-        }, 75);
+        }, 75)
     }, [])
 
     if (container) {
-        container().ontouchstart = touchStartHandler;
-        container().ontouchmove = touchMoveHandler;
+        container().ontouchstart = touchStartHandler
+        container().ontouchmove = touchMoveHandler
     }
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
         <>
@@ -61,7 +61,7 @@ const HeaderResponsive = ({items}: Props) => {
                         aria-label="open drawer"
                         edge="start"
                         onClick={() => setIsOpen(val => !val)}
-                        sx={{mr: 1, display: {sm: 'none'}}}
+                        sx={{mr: 1, display: {sm: "none"}}}
                     >
                         <MenuIcon/>
                     </IconButton>
@@ -72,13 +72,13 @@ const HeaderResponsive = ({items}: Props) => {
                     >
                         GitHub Browser
                     </Typography>
-                    <Box sx={{display: {xs: 'none', sm: 'block'}}}>
+                    <Box sx={{display: {xs: "none", sm: "block"}}}>
                         {menu.map((item) => (
                             <CustomLink
                                 key={item.title}
                                 to={item.path}
                                 children={
-                                    <Button sx={{color: '#fff'}}>{item.title}</Button>
+                                    <Button sx={{color: "#fff"}}>{item.title}</Button>
                                 }/>
 
                         ))}
@@ -92,11 +92,11 @@ const HeaderResponsive = ({items}: Props) => {
                 open={isOpen}
                 onClose={(val) => setIsOpen(!val)}
                 ModalProps={{
-                    keepMounted: true, // Better isOpen performance on mobile.
+                    keepMounted: true // Better isOpen performance on mobile.
                 }}
                 sx={{
-                    display: {xs: 'block', sm: 'none'},
-                    '& .MuiDrawer-paper': {boxSizing: 'border-box', width: 240}
+                    display: {xs: "block", sm: "none"},
+                    "& .MuiDrawer-paper": {boxSizing: "border-box", width: 240}
                 }}
             >
                 <Box sx={{ml: 2}}>
@@ -107,7 +107,7 @@ const HeaderResponsive = ({items}: Props) => {
                     <List>
                         {items.map((item) => (
                             <ListItem key={item.title} disablePadding>
-                                <ListItemButton sx={{textAlign: 'left'}}>
+                                <ListItemButton sx={{textAlign: "left"}}>
                                     <ListItemText primary={item.title}/>
                                 </ListItemButton>
                             </ListItem>
@@ -117,7 +117,7 @@ const HeaderResponsive = ({items}: Props) => {
             </Drawer>
 
         </>
-    );
-};
+    )
+}
 
-export default HeaderResponsive;
+export default HeaderResponsive

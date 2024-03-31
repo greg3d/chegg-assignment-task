@@ -1,10 +1,10 @@
 export const baseTheme = {
     colors: {
-        primary: '#777777'
+        primary: "#777777"
     },
     sizes: {
         sandwich: {
-            line: "2px",
+            line: "2px"
 
         }
     }

@@ -1,13 +1,13 @@
-import {Box, Grid, LinearProgress, Skeleton} from "@mui/material";
+import {Box, Grid, LinearProgress, Skeleton} from "@mui/material"
 
-const Skeletons = ({count}:{count:number}) => {
+const Skeletons = ({count}: { count: number }) => {
 
     return (
         <>
-            <LinearProgress />
-            {[...Array(count)].map((e, i) => (
+            <LinearProgress/>
+            {[...Array(count)].map((_e, i) => (
                 <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={i}>
-                    <Box sx={{display: "flex", flexDirection: 'row'}}>
+                    <Box sx={{display: "flex", flexDirection: "row"}}>
                         <Box>
                             <Skeleton variant="circular" width={100}
                                       height={100}/>
@@ -27,7 +27,7 @@ const Skeletons = ({count}:{count:number}) => {
                 </Grid>
             ))}
         </>
-    );
-};
+    )
+}
 
-export default Skeletons;
+export default Skeletons

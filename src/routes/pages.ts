@@ -1,18 +1,19 @@
-import SearchPage from "../pages/SearchPage.tsx";
-import SettingsPage from "../pages/SettingsPage.tsx";
-import ProfileViewPage from "../pages/ProfileViewPage.tsx";
-import {LoaderFunctionArgs, redirect, RouteObject} from "react-router-dom";
-import MyAccount from "../pages/MyAccount.tsx";
-import {store} from "../stores/RootStore.ts";
-import LoginPage from "../pages/LoginPage.tsx";
+import SearchPage from "../pages/SearchPage.tsx"
+import SettingsPage from "../pages/SettingsPage.tsx"
+import ProfileViewPage from "../pages/ProfileViewPage.tsx"
+import {LoaderFunctionArgs, redirect, RouteObject} from "react-router-dom"
+import MyAccount from "../pages/MyAccount.tsx"
+import {store} from "../stores/RootStore.ts"
+import LoginPage from "../pages/LoginPage.tsx"
+
 export const pages = [
     {
         title: "Search Profiles",
         path: "/",
-        Component: SearchPage,
+        Component: SearchPage
     },
     {
-        title: "App SettingsPage",
+        title: "Settings",
         path: "settings",
         Component: SettingsPage
     },
@@ -30,15 +31,15 @@ export const pages = [
         path: "login",
         Component: LoginPage
     }
-];
+]
 
 function profileLoader({request}: LoaderFunctionArgs) {
     if (store.user.current === null) {
-        const params = new URLSearchParams();
-        params.set("from", new URL(request.url).pathname);
-        return redirect("/login?" + params.toString());
+        const params = new URLSearchParams()
+        params.set("from", new URL(request.url).pathname)
+        return redirect("/login?" + params.toString())
     }
-    return null;
+    return null
 }
 
 export const routes: RouteObject[] = pages.map((page) => {

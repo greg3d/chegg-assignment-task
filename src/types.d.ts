@@ -8,19 +8,18 @@ interface ISearchStore<T> extends IStore {
     totalItems: number
     totalPages: number
     perPage: number
-    isEnd: boolean
     sortBy: string
     sortDir: string
     items: T[]
 
-    getSortList: ()=>{value:string, label: string}[]
-
-    nextPage: () => void
-    prevPage: () => void
-    setPage: (index: number) => void
+    getSortList: () => { value: string, label: string }[]
     setSearchPrompt: (val: string) => void
-    setSortDir: (val: string)=>void
-    setSortBy: (val: string)=>void
+    setSortDir: (val: string) => void
+    setSortBy: (val: string) => void
+
+    nextPage?: () => void
+    prevPage?: () => void
+    setPage?: (index: number) => void
 
 }
 
@@ -56,12 +55,12 @@ interface IUser extends Record<string, string | number | boolean> {
     created_at: string
 }
 
-type IUserPreview = Pick<IUser, 'id' | 'login' | 'avatar_url' | 'url' | 'type'>
+type IUserPreview = Pick<IUser, "id" | "login" | "avatar_url" | "url" | "type" | "repos_url" | "html_url">
 
 interface ISearchData {
     total_count: number
     incomplete_results: boolean
     items: IUserPreview[]
 }
-
-type GenericItem = ({ id: number } & { [key: string]: any })
+type GenericItem = ({ id: number } & { [key: string]: unknown })
+type ISetting = number | string | boolean
