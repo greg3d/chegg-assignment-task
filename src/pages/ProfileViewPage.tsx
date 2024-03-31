@@ -141,7 +141,6 @@ const ProfileViewContent = ({profile}: { profile: IUser }) => {
 
                 </Grid>
 
-                // Repos
                 <Grid item xs={12} sm={6} md={5}>
                     <Typography variant={"h4"}>
                         <ListIcon/> Repositories ({profile.public_repos})
@@ -157,8 +156,6 @@ const ProfileViewContent = ({profile}: { profile: IUser }) => {
                     {repos && (profile.public_repos > repos.length) && <LoadMoreButton/>}
                 </Grid>
 
-
-                // Followers
                 <Grid item xs={12} sm={6} md={4}>
                     <Typography variant={"h4"}>
                         <PeopleIcon/> Followers ({profile.followers})
