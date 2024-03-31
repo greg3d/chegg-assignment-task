@@ -10,7 +10,11 @@ export const pages = [
     {
         title: "Search Profiles",
         path: "/",
-        Component: SearchPage
+        Component: SearchPage,
+        children: [{
+            path: "user/:login",
+            Component: ProfileViewPage
+        }]
     },
     {
         title: "Settings",
@@ -23,10 +27,7 @@ export const pages = [
         loader: profileLoader,
         Component: MyAccount
     },
-    {
-        path: "user/:login",
-        Component: ProfileViewPage
-    },
+
     {
         path: "login",
         Component: LoginPage

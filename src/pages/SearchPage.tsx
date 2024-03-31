@@ -9,6 +9,7 @@ import SearchSorting from "../components/SearchSorting.tsx"
 import Skeletons from "../components/Skeletons.tsx"
 import {fetcher} from "../service/githubApi.ts"
 import {useSearchInfinite} from "../hooks/useSearchInfinite.ts"
+import {Outlet} from "react-router-dom"
 
 const SearchPage = observer(() => {
 
@@ -60,6 +61,8 @@ const SearchPage = observer(() => {
             </Grid>
 
             <Box ref={loadMoreRef} sx={{height: "100px", width: "100%"}}></Box>
+
+            <Outlet />
         </Box>
     )
 })

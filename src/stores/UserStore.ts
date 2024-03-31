@@ -4,6 +4,8 @@ import {makeAutoObservable, runInAction} from "mobx"
 class UserStore implements IStore {
     readonly rootStore: RootStore
 
+    likes: string[] = []
+
     current: IUser | null = null
     gitHubToken: string = ""
 
@@ -21,6 +23,8 @@ class UserStore implements IStore {
         }
         return false
     }
+
+    like()
 
     setUser = (user: IUser) => {
         runInAction(() => this.current = user)

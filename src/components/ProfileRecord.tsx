@@ -23,7 +23,8 @@ const ProfileRecord = observer(({item}: { item: GenericItem }) => {
                     src={profile.avatar_url}
                     alt={profile.login}
                     sx={{
-                        border: "1px solid #EEE",
+                        border: "1px solid divider",
+                        borderColor: "divider",
                         boxShadow: "2px 2px 1px #00000055",
                         height: {lg: "80px", xs: "100px"},
                         width: {lg: "80px", xs: "100px"}
@@ -31,12 +32,12 @@ const ProfileRecord = observer(({item}: { item: GenericItem }) => {
                 />
                 <Box sx={{flexGrow: 2, ml: 2, display: "flex", flexDirection: "column"}}>
                     <Typography variant={"h5"} sx={{mb:1}}>
-                        <ALink component={Link} to={"/user/" + profile.login}>{profile.login}</ALink>
+                        <ALink component={Link} color={"primary"} to={"/user/" + profile.login}>{profile.login}</ALink>
                     </Typography>
                     <Stack direction={"row"} spacing={0.5}>
-                        <GitHubIcon color={"primary"} fontSize={"small"}/>
-                        <OpenInNewIcon color={"primary"} fontSize={"small"}/>
-                        <ALink href={profile.html_url + "?tab=repositories"} fontSize={14} variant={"body1"}>
+                        <GitHubIcon color={"secondary"} fontSize={"small"}/>
+                        <OpenInNewIcon color={"secondary"} fontSize={"small"}/>
+                        <ALink color={"secondary"} href={profile.html_url + "?tab=repositories"} fontSize={14} variant={"body1"}>
                             Profile on Github
                         </ALink>
                     </Stack>
