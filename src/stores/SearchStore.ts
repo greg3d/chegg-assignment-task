@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx"
 import {RootStore} from "./RootStore.ts"
-import {Sorts} from "../helpers/sorts.ts";
+import {Sorts} from "../helpers/sorts.ts"
 
 class SearchStore implements ISearchStore<IUserPreview> {
 

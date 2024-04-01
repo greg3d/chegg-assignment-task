@@ -23,7 +23,7 @@ interface ISearchStore<T> extends IStore {
 
 }
 
-interface IUser extends Record<string, string | number | boolean | Date> {
+interface IUser extends Record<string, string | number | boolean> {
     login: string
     id: number
     node_id: string
@@ -52,8 +52,8 @@ interface IUser extends Record<string, string | number | boolean | Date> {
     public_gists: number
     followers: number
     following: number
-    created_at: Date
-    updated_at: Date
+    created_at: string
+    updated_at: string
     total_private_repos: number
     owned_private_repos: number
     disk_usage: number
@@ -72,7 +72,7 @@ type GenericItem = ({ id: number } & { [key: string]: unknown })
 type ISetting = number | string | boolean
 
 
-interface IRepo extends Record<string, number | string | IUser | boolean | null | Date> {
+interface IRepo extends Record<string, number | string | IUser | boolean | null | string> {
     id: number
     name: string
     full_name: string
@@ -80,6 +80,6 @@ interface IRepo extends Record<string, number | string | IUser | boolean | null 
     private: boolean
     html_url: string
     description: string | null
-    created_at: Date
-    updated_at: Date
+    created_at: string
+    updated_at: string
 }

@@ -16,7 +16,7 @@ class UIStore implements IStore {
         this.settings = new Map<string, ISetting>()
         this.settings.set("resultsPerPage", 24)
         this.settings.set("searchPromptDebounce", 300)
-        this.settings.set("searchFetchDebounce", 1000)
+        this.settings.set("searchFetchDebounce", 1100)
         this.settings.set("theme", "light")
     }
 
@@ -45,7 +45,7 @@ class UIStore implements IStore {
 
     toggleTheme = () => {
         runInAction(() => {
-            this.settings.set("theme", this.settings.get("theme")==="light" ? "dark" : "light")
+            this.settings.set("theme", this.settings.get("theme") === "light" ? "dark" : "light")
         })
     }
 }

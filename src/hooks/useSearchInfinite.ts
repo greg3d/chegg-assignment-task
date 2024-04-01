@@ -7,7 +7,8 @@ import useSWRInfinite, {SWRInfiniteKeyLoader} from "swr/infinite"
 export const useSearchInfinite = (
     fetcher: Fetcher<ISearchData, string>,
     search: SearchStore,
-    loadMoreRef: React.RefObject<HTMLDivElement>
+    loadMoreRef: React.RefObject<HTMLDivElement>,
+    debounce?: number
 ) => {
 
     const counter = useRef<number>(0)
@@ -18,21 +19,15 @@ export const useSearchInfinite = (
         // do not fetch if searchPrompt is empty
         if (!search.searchPrompt || search.searchPrompt === "") return null
 
-        console.log(search.perPage.toString())
-
         let searchParams: Record<string, string> & { q: string } = {
             q: search.searchPrompt,
             per_page: search.perPage.toString(),
             page: (index + 1).toString()
         }
 
-        console.log(searchParams)
-
         if (search.sortBy !== "") {
             searchParams = {...searchParams, sort: search.sortBy, order: search.sortDir}
         }
-
-
 
         return `/search/users?` + new URLSearchParams(searchParams)
 
@@ -47,7 +42,6 @@ export const useSearchInfinite = (
     } = useSWRInfinite<ISearchData, AxiosError>(getKey, fetcher, {
         shouldRetryOnError: false,
         onSuccess: (data1: ISearchData[]) => {
-            console.log("success")
             search.setStateInfinite(data1)
         }
     })
@@ -55,7 +49,7 @@ export const useSearchInfinite = (
     const isBusy = isLoading || isValidating
     const isError: boolean = error !== undefined
 
-    const isEmpty = data ? data[0].items.length === 0 : true;
+    const isEmpty = data ? data[0].items.length === 0 : true
     const isEnd = data ? data[data.length - 1].items.length < search.perPage : false
 
     const handleIntersection = useCallback<IntersectionObserverCallback>((entries) => {
@@ -75,14 +69,12 @@ export const useSearchInfinite = (
         const observer = new IntersectionObserver(handleIntersection)
         counter.current = setTimeout(() => {
             if (loadMoreRef.current) observer.observe(loadMoreRef.current)
-        }, 1000)
+        }, debounce ? debounce : 1000)
         return () => {
             clearTimeout(counter.current)
             observer.disconnect()
         }
     }, [handleIntersection, loadMoreRef])
-
-    console.log(isBusy, isEnd, isError, isEmpty)
 
     return {
         isBusy,

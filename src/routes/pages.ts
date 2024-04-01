@@ -2,9 +2,9 @@ import SearchPage from "../pages/SearchPage.tsx"
 import SettingsPage from "../pages/SettingsPage.tsx"
 import ProfileViewPage from "../pages/ProfileViewPage.tsx"
 import {LoaderFunctionArgs, redirect, RouteObject} from "react-router-dom"
-import MyAccount from "../pages/MyAccount.tsx"
 import {store} from "../stores/RootStore.ts"
 import LoginPage from "../pages/LoginPage.tsx"
+import MyAccount from "../pages/MyAccount.tsx"
 
 export const pages = [
     {
@@ -13,7 +13,13 @@ export const pages = [
         Component: SearchPage,
         children: [{
             path: "user/:login",
-            Component: ProfileViewPage
+            Component: ProfileViewPage,
+            children: [
+                {
+                    path: ":internal",
+                    Component: ProfileViewPage
+                }
+            ]
         }]
     },
     {
@@ -25,7 +31,13 @@ export const pages = [
         title: "My Profile",
         path: "my-account",
         loader: profileLoader,
-        Component: MyAccount
+        Component: MyAccount,
+        children: [
+            {
+                path: ":internal",
+                Component: MyAccount
+            }
+        ]
     },
 
     {

@@ -13,10 +13,19 @@ import {Outlet} from "react-router-dom"
 
 const SearchPage = observer(() => {
 
-    const {search} = useStore()
+    const {search, ui} = useStore()
     const loadMoreRef = useRef<HTMLDivElement>(null)
 
-    const {isBusy, isEmpty, isError} = useSearchInfinite(fetcher, search, loadMoreRef)
+    const {
+        isBusy,
+        isEmpty,
+        isError
+    } = useSearchInfinite(
+        fetcher,
+        search,
+        loadMoreRef,
+        ui.getSetting("searchFetchDebounce", 1000) as number
+    )
 
     return (
         <Box>
@@ -29,6 +38,7 @@ const SearchPage = observer(() => {
                         name={"search-profile"}
                         value={search.searchPrompt}
                         setter={search.setSearchPrompt}
+                        debounce={ui.getSetting("searchPromptDebounce", 500) as number}
                     />
                 </Grid>
                 <Grid item xs={"auto"}>
@@ -62,7 +72,7 @@ const SearchPage = observer(() => {
 
             <Box ref={loadMoreRef} sx={{height: "100px", width: "100%"}}></Box>
 
-            <Outlet />
+            <Outlet/>
         </Box>
     )
 })

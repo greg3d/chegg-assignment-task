@@ -24,10 +24,19 @@ class UserStore implements IStore {
         return false
     }
 
-    like()
-
     setUser = (user: IUser) => {
         runInAction(() => this.current = user)
+    }
+
+    like = (user: string) => {
+        runInAction(() => {
+            this.likes.push(user)
+        })
+    }
+    dislike = (user: string) => {
+        runInAction(() => {
+            this.likes.splice(this.likes.indexOf(user), 1)
+        })
     }
 
     logout = () => {

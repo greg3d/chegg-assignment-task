@@ -1,8 +1,8 @@
 import {Box, FormControlLabel, Stack, Switch, Typography} from "@mui/material"
 import {useStore} from "../stores/RootStore.ts"
-import NumericSetting from "../components/NumericSetting.tsx";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import NumericSetting from "../components/NumericSetting.tsx"
+import Brightness4Icon from "@mui/icons-material/Brightness4"
+import Brightness7Icon from "@mui/icons-material/Brightness7"
 import UIStore from "../stores/UIStore.ts"
 import {observer} from "mobx-react-lite"
 
@@ -16,7 +16,7 @@ const ThemeToggler = observer((props: { ui: UIStore, onChange: () => void }) => 
             <FormControlLabel control={<Switch
                 value={props.ui.getSetting("theme")}
                 checked={props.ui.getSetting("theme") === "dark"}
-                onChange={()=>props.onChange()}
+                onChange={() => props.onChange()}
             />} label="Theme Mode"/>
         </Stack>
     </Box>

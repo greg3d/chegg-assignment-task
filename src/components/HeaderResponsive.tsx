@@ -16,7 +16,6 @@ import {Menu as MenuIcon} from "@mui/icons-material"
 import {menu} from "../routes/pages.ts"
 import {useCallback, useRef, useState} from "react"
 import CustomLink from "./CustomLink.tsx"
-
 interface Props {
     items: { title: string, path: string }[]
 }
@@ -77,10 +76,7 @@ const HeaderResponsive = ({items}: Props) => {
                             <CustomLink
                                 key={item.title}
                                 to={item.path}
-                                children={
-                                    <Button sx={{color: "#fff"}}>{item.title}</Button>
-                                }/>
-
+                            ><Button>{item.title}</Button></CustomLink>
                         ))}
                     </Box>
                 </Toolbar>
@@ -107,9 +103,12 @@ const HeaderResponsive = ({items}: Props) => {
                     <List>
                         {items.map((item) => (
                             <ListItem key={item.title} disablePadding>
-                                <ListItemButton sx={{textAlign: "left"}}>
-                                    <ListItemText primary={item.title}/>
-                                </ListItemButton>
+                                <CustomLink key={item.title}
+                                            to={item.path}>
+                                    <ListItemButton sx={{textAlign: "left"}}>
+                                        <ListItemText primary={item.title}/>
+                                    </ListItemButton>
+                                </CustomLink>
                             </ListItem>
                         ))}
                     </List>

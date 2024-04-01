@@ -6,6 +6,7 @@ interface Props {
     name: string
     value: string
     setter: (val: string) => void
+    debounce?: number
 }
 
 const SearchPanel = (props: Props) => {
@@ -20,7 +21,7 @@ const SearchPanel = (props: Props) => {
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setVal(e.target.value)
         clearTimeout(debounce.current)
-        debounce.current = setTimeout(() => setter(e.target.value), 500)
+        debounce.current = setTimeout(() => setter(e.target.value), props.debounce ? props.debounce : 500)
     }
     return (
 

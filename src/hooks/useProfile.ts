@@ -1,7 +1,7 @@
 import useSWR from "swr"
 import {getUser} from "../service/githubApi.ts"
 
-export const useProfile = (name: string) => {
+export const useProfile = (name: string | null) => {
     const {data, error, isLoading} = useSWR(name, getUser)
 
     return {

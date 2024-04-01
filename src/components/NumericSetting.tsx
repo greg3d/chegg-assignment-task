@@ -1,5 +1,5 @@
-import {observer} from "mobx-react-lite";
-import {Box, Slider, Stack, Typography} from "@mui/material";
+import {observer} from "mobx-react-lite"
+import {Box, Slider, Stack, Typography} from "@mui/material"
 
 interface Props {
     label: string

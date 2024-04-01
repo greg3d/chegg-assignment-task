@@ -2,10 +2,13 @@ import {Link} from "react-router-dom"
 import {observer} from "mobx-react-lite"
 import {Avatar, Box, Grid, Link as ALink, Stack, Typography} from "@mui/material"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
-import GitHubIcon from '@mui/icons-material/GitHub';
+import GitHubIcon from "@mui/icons-material/GitHub"
+import LikeDislike from "./LikeDislike.tsx"
+import {useStore} from "../stores/RootStore.ts"
 
 const ProfileRecord = observer(({item}: { item: GenericItem }) => {
     const profile = item as IUserPreview
+    const {user} = useStore()
     return (
         <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
             <Box sx={{
@@ -31,13 +34,16 @@ const ProfileRecord = observer(({item}: { item: GenericItem }) => {
                     }}
                 />
                 <Box sx={{flexGrow: 2, ml: 2, display: "flex", flexDirection: "column"}}>
-                    <Typography variant={"h5"} sx={{mb:1}}>
+                    <Typography variant={"h5"} sx={{mb: 1}}>
                         <ALink component={Link} color={"primary"} to={"/user/" + profile.login}>{profile.login}</ALink>
+                        <LikeDislike list={user.likes} name={profile.login as string} like={user.like}
+                                     dislike={user.dislike}/>
                     </Typography>
                     <Stack direction={"row"} spacing={0.5}>
                         <GitHubIcon color={"secondary"} fontSize={"small"}/>
                         <OpenInNewIcon color={"secondary"} fontSize={"small"}/>
-                        <ALink color={"secondary"} href={profile.html_url + "?tab=repositories"} fontSize={14} variant={"body1"}>
+                        <ALink color={"secondary"} href={profile.html_url + "?tab=repositories"} fontSize={14}
+                               variant={"body1"}>
                             Profile on Github
                         </ALink>
                     </Stack>
