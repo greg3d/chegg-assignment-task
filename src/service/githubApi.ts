@@ -1,7 +1,5 @@
 import axios, {AxiosError} from "axios"
 import {store} from "../stores/RootStore.ts"
-
-// const API_TOKEN = "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";
 const API_BASE_URL = "https://api.github.com"
 
 export const fetcherRaw = async (url: string) => {

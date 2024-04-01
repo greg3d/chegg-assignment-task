@@ -27,7 +27,7 @@ const LoginPage = () => {
                 Authorization page
             </Typography>
             <p>
-                try: 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
+                use your own Github Token
             </p>
             <TextField id="user-token" label="GitHub Token" variant="outlined"
                        value={token} onChange={(e) => setToken(e.target.value)}
